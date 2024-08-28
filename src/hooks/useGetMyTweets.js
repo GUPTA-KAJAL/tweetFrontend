@@ -10,6 +10,10 @@ const useGetMyTweets=(id)=>{
     const {refresh,isActive}=useSelector(store=>store.tweet)
     
     const fetchMyTweets =async()=>{
+        if (!id) {
+            console.error("User ID is missing");
+            return;
+          }
         try{
             const res=await axios.get(`${TWEET_API_END_POINT}/getalltweet/${id}`,{withCredentials:true})
             dispatch(getAllTweets(res.data.tweets))
